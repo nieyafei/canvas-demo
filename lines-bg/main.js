@@ -17,20 +17,20 @@ var linesBgCanvas = function(domClass, objs) {
     this.ctx = obj.getContext("2d"); // 获取画图
     this.clicked = options.clicked || false; // 是否鼠标可以点击
     this.moved = options.moved || false; // 是否跟随可以移动
-    this.length = options.length || 100; // 线条数
+    this.length = options.length || 300; // 线条数
     this.lineLength = 100; // 线的长度
-    this.arrList = [];
-    this.off_cvs = document.createElement("canvas");
+    this.arrList = [];// 生成的点的数组
+    this.off_ctx = document.createElement("canvas");
     this.paused = true;
   }
   // 开始执行
   CanvasIndex.prototype.init = function() {
     if (this.clicked) {
-      this.DomElement.addEventListener("click", "", false);
+      this.DomElement.addEventListener("click", this.click.bind(this));
     }
     if (this.moved) {
-      this.DomElement.addEventListener("mousemove", "", false); // 移动
-      this.DomElement.addEventListener("mouseout", "", false); // 离开
+      this.DomElement.addEventListener("mousemove", this.moveXY.bind(this), false); // 移动
+      this.DomElement.addEventListener("mouseout", this.moveoutXY.bind(this), false); // 离开
     }
     this.draw(this.getLength());
   }
@@ -46,6 +46,41 @@ var linesBgCanvas = function(domClass, objs) {
       })
     }
     return arr;
+  }
+  // 开始点击
+  CanvasIndex.prototype.click = function(e){
+    var event = e || window.event;
+    this.arrList.push({
+      x: event.clientX,
+      y: event.clientY,
+      r: parseInt(Math.random() * 10),
+      controlX: parseInt(Math.random() * 10) > 5 ? 'left' : 'right',
+      controlY: parseInt(Math.random() * 10) > 5 ? 'bottom' : 'top'
+    })
+  }
+
+  // 鼠标滑动
+  CanvasIndex.prototype.moveXY = function(e){
+    var event = e || window.event;
+    var obj = {
+      x: event.clientX,
+      y: event.clientY,
+      r: 0,
+      controlX: parseInt(Math.random() * 10) > 5 ? 'left' : 'right',
+      controlY: parseInt(Math.random() * 10) > 5 ? 'bottom' : 'top',
+      move:true
+    }
+    if(this.arrList[0].move){
+      this.arrList[0].x = event.clientX;
+      this.arrList[0].y = event.clientY;
+      this.arrList[0].r = 1;
+    }else{
+      this.arrList.unshift(obj);
+    }
+  }
+  // 鼠标移开
+  CanvasIndex.prototype.moveoutXY = function(e){
+    this.arrList.shift();
   }
   // 开始画图
   CanvasIndex.prototype.draw = function(list) {
@@ -82,20 +117,18 @@ var linesBgCanvas = function(domClass, objs) {
     })
 
     this.arrList = new_arr;
-    this.ctx.drawImage(this.off_cvs, 0, 0, this.DomElement.width, this.DomElement.height);
-    setTimeout(function() {
-      console.log("123")
-      if (this.paused) {
+    this.ctx.drawImage(this.off_ctx, 0, 0, this.DomElement.width, this.DomElement.height);
+    setTimeout(()=>{
+      if(this.paused){
         this.next();
       }
     }, 50)
   }
   CanvasIndex.prototype.next = function() {
-    console.log("执行");
     // 清楚
     this.ctx.clearRect(0, 0, this.DomElement.width, this.DomElement.height);
-    this.DomElement.clearRect(0, 0, this.DomElement.width, this.DomElement.height);
-    this.draw();
+    this.ctx.clearRect(0, 0, this.DomElement.width, this.DomElement.height);
+    this.draw(this.arrList);
   }
   CanvasIndex.prototype.drawLiner = function(obj) {
     //console.log(obj)
@@ -103,14 +136,14 @@ var linesBgCanvas = function(domClass, objs) {
     this.ctx.moveTo(obj.x1, obj.y1);
     this.ctx.lineTo(obj.x2, obj.y2)
     this.ctx.lineWidth = 1;
-    this.ctx.strokeStyle = "#999";
+    this.ctx.strokeStyle = "rgba(0,0,0,0.02)";
     this.ctx.stroke();
     this.ctx.closePath();
   }
   CanvasIndex.prototype.drawRound = function(obj) {
     this.ctx.beginPath();
     this.ctx.arc(obj.x, obj.y, obj.r, 0, Math.PI * 2);
-    this.ctx.fillStyle = "#999";
+    this.ctx.fillStyle = "rgba(0,0,0,0.2)";
     this.ctx.fill();
     this.ctx.closePath();
   }
