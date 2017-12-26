@@ -10,8 +10,8 @@ var linesBgCanvas = function(domClass, objs) {
   // 构造函数
   function CanvasIndex(obj, options) {
     getWidthHeight();
-    obj.setAttribute("width", clientWidth - 16 + "px");
-    obj.setAttribute("height", clientHeight - 16 + "px");
+    obj.setAttribute("width", clientWidth - 16);
+    obj.setAttribute("height", clientHeight - 16);
     options = options || {};
     this.DomElement = obj;
     this.ctx = obj.getContext("2d"); // 获取画图
@@ -22,6 +22,8 @@ var linesBgCanvas = function(domClass, objs) {
     this.arrList = [];// 生成的点的数组
     this.off_ctx = document.createElement("canvas");
     this.paused = true;
+    this.strokeStyle = options.roundColor || 'rgba(0,0,0,0.02)';
+    this.fillStyle = options.lineColor || 'rgba(0,0,0,0.2)';
   }
   // 开始执行
   CanvasIndex.prototype.init = function() {
@@ -41,8 +43,8 @@ var linesBgCanvas = function(domClass, objs) {
         x: parseInt(Math.random() * this.DomElement.width),
         y: parseInt(Math.random() * this.DomElement.height),
         r: parseInt(Math.random() * 10),
-        controlX: parseInt(Math.random() * 10) > 5 ? 'left' : 'right',
-        controlY: parseInt(Math.random() * 10) > 5 ? 'bottom' : 'top'
+        controlX: parseInt(Math.random() * 10) > 5 ? 'left' : 'right',// x随机的移动方向
+        controlY: parseInt(Math.random() * 10) > 5 ? 'bottom' : 'top' // y随机的移动方向
       })
     }
     return arr;
@@ -122,7 +124,7 @@ var linesBgCanvas = function(domClass, objs) {
       if(this.paused){
         this.next();
       }
-    }, 50)
+    }, 100)
   }
   CanvasIndex.prototype.next = function() {
     // 清楚
@@ -136,14 +138,14 @@ var linesBgCanvas = function(domClass, objs) {
     this.ctx.moveTo(obj.x1, obj.y1);
     this.ctx.lineTo(obj.x2, obj.y2)
     this.ctx.lineWidth = 1;
-    this.ctx.strokeStyle = "rgba(0,0,0,0.02)";
+    this.ctx.strokeStyle = this.strokeStyle;
     this.ctx.stroke();
     this.ctx.closePath();
   }
   CanvasIndex.prototype.drawRound = function(obj) {
     this.ctx.beginPath();
     this.ctx.arc(obj.x, obj.y, obj.r, 0, Math.PI * 2);
-    this.ctx.fillStyle = "rgba(0,0,0,0.2)";
+    this.ctx.fillStyle = this.fillStyle;
     this.ctx.fill();
     this.ctx.closePath();
   }
@@ -204,7 +206,6 @@ var linesBgCanvas = function(domClass, objs) {
       clientWidth = document.documentElement.clientWidth;
       clientHeight = document.documentElement.clientHeight;
     }
-    console.log(clientWidth, clientHeight)
   }
   // 执行方法
   var rootCanvas = getDom();
