@@ -46,7 +46,7 @@ var CanvasLineBg = function(obj, options) {
     setTimeout(() => {
       //this.ctx.clearRect(0, 0, this.DomElement.width, this.DomElement.height); //清楚绘制
       this.start();
-    }, 500)
+    }, 50)
   }
   CanvasIndex.prototype.draw = function(list) {
     this.ctx.fillStyle = 'rgba(0, 0, 0, .05)';
