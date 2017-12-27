@@ -5,4 +5,4 @@ Canvas的效果和知识点的练习
 
 [在线访问链接](http://codehtml.cn/canvas-demo/lines-bg/index.html)
 
-![img](.\resources\images\demo1.gif)
+![img](http://codehtml.cn/canvas-demo/resources/images/demo1.gif)
