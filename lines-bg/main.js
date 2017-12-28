@@ -19,7 +19,7 @@ var linesBgCanvas = function(domClass, objs) {
     this.moved = options.moved || false; // 是否跟随可以移动
     this.length = options.length || 300; // 线条数
     this.lineLength = 100; // 线的长度
-    this.arrList = [];// 生成的点的数组
+    this.arrList = []; // 生成的点的数组
     this.off_ctx = document.createElement("canvas");
     this.paused = true;
     this.strokeStyle = options.roundColor || 'rgba(0,0,0,0.02)';
@@ -43,14 +43,14 @@ var linesBgCanvas = function(domClass, objs) {
         x: parseInt(Math.random() * this.DomElement.width),
         y: parseInt(Math.random() * this.DomElement.height),
         r: parseInt(Math.random() * 10),
-        controlX: parseInt(Math.random() * 10) > 5 ? 'left' : 'right',// x随机的移动方向
+        controlX: parseInt(Math.random() * 10) > 5 ? 'left' : 'right', // x随机的移动方向
         controlY: parseInt(Math.random() * 10) > 5 ? 'bottom' : 'top' // y随机的移动方向
       })
     }
     return arr;
   }
   // 开始点击
-  CanvasIndex.prototype.click = function(e){
+  CanvasIndex.prototype.click = function(e) {
     var event = e || window.event;
     this.arrList.push({
       x: event.clientX,
@@ -62,7 +62,7 @@ var linesBgCanvas = function(domClass, objs) {
   }
 
   // 鼠标滑动
-  CanvasIndex.prototype.moveXY = function(e){
+  CanvasIndex.prototype.moveXY = function(e) {
     var event = e || window.event;
     var obj = {
       x: event.clientX,
@@ -70,18 +70,18 @@ var linesBgCanvas = function(domClass, objs) {
       r: 0,
       controlX: parseInt(Math.random() * 10) > 5 ? 'left' : 'right',
       controlY: parseInt(Math.random() * 10) > 5 ? 'bottom' : 'top',
-      move:true
+      move: true
     }
-    if(this.arrList[0].move){
+    if (this.arrList[0].move) {
       this.arrList[0].x = event.clientX;
       this.arrList[0].y = event.clientY;
       this.arrList[0].r = 1;
-    }else{
+    } else {
       this.arrList.unshift(obj);
     }
   }
   // 鼠标移开
-  CanvasIndex.prototype.moveoutXY = function(e){
+  CanvasIndex.prototype.moveoutXY = function(e) {
     this.arrList.shift();
   }
   // 开始画图
@@ -120,8 +120,8 @@ var linesBgCanvas = function(domClass, objs) {
 
     this.arrList = new_arr;
     this.ctx.drawImage(this.off_ctx, 0, 0, this.DomElement.width, this.DomElement.height);
-    setTimeout(()=>{
-      if(this.paused){
+    setTimeout(() => {
+      if (this.paused) {
         this.next();
       }
     }, 100)
@@ -215,7 +215,8 @@ var linesBgCanvas = function(domClass, objs) {
   }
   run();
   // 监控浏览器高度和宽度的变化
-  window.resize = function() {
-    run();
-  }
+  //window.onresize = function() {
+  //  run();
+  //}
+
 }

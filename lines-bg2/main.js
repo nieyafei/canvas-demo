@@ -98,9 +98,9 @@ var CanvasLineBg = function(obj, options) {
     (new CanvasIndex(StaticUtil.getDom(obj))).run();
   }
   init();
-  window.resize = function() {
-    init();
-  }
+  // window.onresize = function() {
+  //   init();
+  // }
 }
 
 CanvasLineBg("#canvas");
