@@ -6,3 +6,9 @@ Canvas的效果和知识点的练习
 [在线访问链接](http://codehtml.cn/canvas-demo/lines-bg/index.html)
 
 ![img](http://codehtml.cn/canvas-demo/resources/images/demo1.gif)
+
+2、Canvas 时间动画特效
+
+[在线访问链接](http://codehtml.cn/canvas-demo/clock/index.html)
+
+![img](http://codehtml.cn/canvas-demo/resources/images/demo2.gif)
