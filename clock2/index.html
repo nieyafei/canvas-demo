@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Canvas时钟</title>
+    <link rel="stylesheet" href="../commonStatic/css/static.css">
+    <style>
+        /* #canvas{margin: 100px auto;display: block;} */
+    </style>
+</head>
+<body>
+    
+    <canvas id="canvas3"></canvas>
+    <canvas id="canvas5"></canvas>
+    <canvas id="canvas4"></canvas>
+    <p></p>
+    <canvas id="canvas"></canvas>
+    <canvas id="canvas2"></canvas>
+    <script src="../commonStatic/js/static.js"></script>
+    <script src="./main.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        ClockTimer("#canvas",{width:400,height:400});
+        ClockTimer("#canvas2",{width:400,height:400,color:"#85AC51",bgColor:"#9BC45C",textColor:"#fff",sColor:"#fff"});
+        ClockTimer("#canvas3",{width:600,height:600,color:"#231F20",bgColor:"#fff",textColor:"#333",sColor:"#333"});
+        ClockTimer("#canvas4",{width:600,height:600,borderWidth:40,color:"#87D4E8",bgColor:"#fff",textColor:"#000",sColor:"#000"});
+        ClockTimer("#canvas5",{width:600,height:600,borderWidth:40,color:"#231F20",bgColor:"#E6E7E9",textColor:"#333",sColor:"#333",pColor:"#fff"});
+    </script>
+</body>
+</html>
