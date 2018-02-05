@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>视频封面-canvas</title>
+    <style>
+        .container{width: 400px;margin: 50px auto;}
+        #video,#video_imgs{width: 320px;height: 180px;}
+        #video_imgs img{width: 100%}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <video src="../resources/video/time.mp4" id="video" controls="controls">
+        </video>
+        <div id="video_imgs"></div>
+    </div>
+    <canvas id="canvas"></canvas>
+    <script src="../commonStatic/js/static.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>
